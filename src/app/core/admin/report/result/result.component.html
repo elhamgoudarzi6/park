@@ -1,0 +1,42 @@
+<div class="row justify-content-center mb-3">
+    <div class="col-lg-12 flex text-right">
+        <button type="button" pButton pRipple icon="pi pi-file" (click)="exportCSV()" class="mr-1" pTooltip="CSV"
+            tooltipPosition="bottom"></button>
+        <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"
+            class="p-button-success mr-1" pTooltip="XLS" tooltipPosition="bottom"></button>
+        <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-warning mr-1"
+            pTooltip="PDF" tooltipPosition="bottom"></button>
+        <button type="button" pButton pRipple icon="pi pi-print" class="p-button-primary mr-1" pTooltip="Print"
+            tooltipPosition="bottom" [useExistingCss]="true" printSectionId="printSection" ngxPrint></button>
+    </div>
+</div>
+
+
+
+
+<div id="printSection" #epltable class="mt-3">
+    <h1 class="mb-4">{{title}}</h1>
+    <p-table #dt [columns]="cols" [value]="result" [exportHeader]="'header'" dataKey="_id">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngIf="columns.length>0" style="width: 40px">ردیف</th>
+                <th *ngFor="let col of columns; let i = index;">
+                    {{col.header}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+                <td *ngIf="columns.length>0" style="width: 40px">{{rowIndex+1}}</td>
+                <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="100%">هیچ رکوردی یافت نشد.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

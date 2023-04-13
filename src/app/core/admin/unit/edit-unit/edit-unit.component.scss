@@ -1,0 +1,105 @@
+input,
+:host::ng-deep .p-inputtext,
+:host::ng-deep .p-dropdown,
+:host::ng-deep .p-chips,
+.p-inputtext,
+.p-dropdown,
+.p-chips,
+textarea {
+  width: 100% !important;
+}
+
+:host::ng-deep .p-dialog .p-dialog-header .p-dialog-title {
+  font-family: IRANSans_Light !important;
+  font-size: 14px;
+}
+
+ul li {
+  font-size: 12px;
+}
+
+:host::ng-deep .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item {
+  font-family: IRANSans_Light !important;
+  font-size: 16px;
+}
+
+label {
+  font-size: 14px;
+  color: #777;
+  font-family: IRANSans_Bold !important;
+}
+
+:host::ng-deep .p-datatable .p-datatable-thead>tr>th {
+  font-size: 12px;
+  text-align: center;
+  position: sticky;
+}
+
+:host::ng-deep .p-datatable .p-datatable-tbody>tr>td {
+  font-family: IRANSans_Light !important;
+  font-size: 13px;
+  text-align: center;
+
+}
+
+
+:host::ng-deep .p-toast .p-toast-message .p-toast-message-content .p-toast-summary {
+  font-size: 16px;
+  font-family: IRANSans_Light !important;
+  margin-right: 5px;
+}
+
+:host::ng-deep .p-toast .p-toast-message .p-toast-message-content .p-toast-detail {
+  font-size: 16px;
+  font-family: IRANSans_Light !important;
+}
+
+:host::ng-deep .p-button.p-button-danger.p-button-text,
+.p-buttonset.p-button-danger>.p-button.p-button-text,
+.p-splitbutton.p-button-danger>.p-button.p-button-text {
+  padding: 0px;
+  margin: 0px;
+  width: 15px;
+  height: 15px;
+}
+
+:host::ng-deep .p-button.p-button-danger .pi {
+  font-size: 10px;
+}
+
+::ng-deep ng-persian-datepicker .datepicker-outer-container {
+  position: absolute;
+  top: 43px;
+  right: -10px;
+  z-index: 1000;
+}
+.logo{
+  max-width: 100px;
+}
+input[type="text"] {
+  height: 45px;
+  border: 1px solid #ced4da;
+}
+
+input[type="text"]::placeholder {
+  color: #495057;
+  font-size: 16px;
+  padding-right: 5px;
+  font-family: IRANSans_Light !important;
+}
+.input-container {
+  display: flex;
+  width: 100%;
+}
+.input-container i {
+  padding: 15px 5px;
+  background: dodgerblue;
+  color: white;
+  width: 30px;
+  text-align: center;
+  border-radius: 2px;
+}
+
+:host::ng-deep .p-dropdown-panel .p-dropdown-items .p-dropdown-item{
+  font-family: IRANSans_Light !important;
+}

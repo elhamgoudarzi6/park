@@ -1,0 +1,457 @@
+<p-toast position="center"></p-toast>
+
+<div class="container-fluid mt-4 text-right">
+    <div class="row pnl-content">
+        <form [formGroup]="form" (ngSubmit)="submitForm()" class="w-100">
+            <div class="row">
+                <div class="col-lg-4 col-sm-12 mb-3">
+                    <span class="p-fluid">
+                        <p-autoComplete [lazy]="true" [dropdown]="true" (onSelect)="onSelectUnit($event)"
+                            (onClear)="onSelectUnit($event)" [suggestions]="filteredUnits" placeholder="نوع واحد فناور"
+                            (completeMethod)="filterUnit($event)" field="title">
+                        </p-autoComplete>
+                    </span>
+                </div>
+                <div class="col-lg-4 col-sm-12 mb-3">
+                    <span class="p-fluid">
+                        <p-autoComplete [lazy]="true" [dropdown]="true" (onSelect)="onSelectUnitStatus($event)"
+                            (onClear)="onSelectUnitStatus($event)" [suggestions]="filteredUnitStatus"
+                            placeholder="وضعیت واحد فناور" (completeMethod)="filterUnitStatus($event)" field="title">
+                        </p-autoComplete>
+                    </span>
+                </div>
+                <div class="col-lg-4 col-sm-12 mb-3">
+                    <span class="p-fluid">
+                        <p-autoComplete [lazy]="true" [dropdown]="true" (onSelect)="onSelectUnitLocation($event)"
+                            (onClear)="onSelectUnitLocation($event)" [suggestions]="filteredUnitLocation"
+                            placeholder="محل استقرار" (completeMethod)="filterUnitLocation($event)" field="title">
+                        </p-autoComplete>
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-sm-12 mb-3">
+                    <input name="ceoID" maxlength="10" minlength="10" pKeyFilter="int" id="" pInputText
+                        placeholder="کد ملی مدیر عامل/نماینده" formControlName="ceoID" />
+                    <ul class="mt-1 text-right list-inline" *ngFor="let error of errorMessages.ceoID">
+                        <li class="font-small text-danger font-weight-bold list-inline-item"
+                            *ngIf="form.get('ceoID').hasError(error.type) && (form.get('ceoID').dirty || form.get('ceoID').touched)">
+                            {{ error.message }}
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-sm-12 mb-3">
+                    <input name="ceoFullName" type="text" pInputText placeholder=" نام و نام خانوادگی مدیر عامل/نماینده"
+                        formControlName="ceoFullName" />
+                    <ul class="mt-1 text-right list-inline" *ngFor="let error of errorMessages.ceoFullName">
+                        <li class="font-small text-danger font-weight-bold list-inline-item"
+                            *ngIf="form.get('ceoFullName').hasError(error.type) && (form.get('ceoFullName').dirty || form.get('ceoFullName').touched)">
+                            {{ error.message }}
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-sm-12 mb-3">
+                    <input pKeyFilter="int" formControlName="ceoMobile" maxlength="11" minlength="11" name="mobile"
+                        pInputText placeholder="  شماره موبایل مدیر عامل/نماینده" required />
+                    <ul class="mt-1 text-right list-inline" *ngFor="let error of errorMessages.ceoMobile">
+                        <li class="font-small text-danger font-weight-bold list-inline-item"
+                            *ngIf="form.get('ceoMobile').hasError(error.type) && (form.get('ceoMobile').dirty || form.get('ceoMobile').touched)">
+                            {{ error.message }}
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-sm-12 mb-3">
+                    <input pKeyFilter="int" formControlName="ceoPhone" maxlength="11" minlength="11" name="ceoPhone"
+                        pInputText placeholder="تلفن ثابت مدیر عامل/نماینده" required />
+                </div>
+       
+                <div class="col-lg-3 col-sm-12 mb-3" *ngIf="type==='شرکت'">
+                    <p-dropdown [options]="companyTypes" optionLabel="title" placeholder="نوع شرکت"
+                        (onChange)="onCompanyTypeChange($event)"></p-dropdown>
+                </div>
+                <div class="col-lg-3 col-sm-12 mb-3" *ngIf="type==='شرکت'">
+                    <input name="companyName" type="text" pInputText placeholder="اسم شرکت"
+                        formControlName="companyName" />
+                </div>
+                <div class="col-lg-3 col-sm-12 mb-3" *ngIf="type==='شرکت'">
+                    <input name="companyID" type="text" pInputText placeholder="شناسه ملی شرکت"
+                        formControlName="companyID" />
+                </div>
+                <div class="col-lg-3 col-sm-12 mb-3" *ngIf="type==='شرکت'">
+                    <input name="workshopCode" type="text" pInputText placeholder="کد کارگاهی"
+                        formControlName="workshopCode" />
+                </div>
+                <div class="col-lg-12 col-sm-12 mb-3">
+                        <textarea formControlName="address" name="address" pInputText placeholder="آدرس"></textarea>
+                </div>
+                <div class="col-lg-12 col-sm-12 mb-3">
+                    <label class="panel-form-label">لوگو شرکت</label>
+                    <p-fileUpload chooseLabel="انتخاب تصویر" uploadLabel="آپلود تصویر" cancelLabel="انصراف"
+                        [customUpload]="true" (uploadHandler)="onFileUpload($event)"
+                        invalidFileSizeMessageDetail="حداکثر سایز فایل 2 مگابایت می باشد"
+                        invalidFileSizeMessageSummary="اندازه فایل بیش از حد مجاز می باشد" accept="image/jpeg,image/png"
+                        [maxFileSize]="2000000">
+                        <ng-template pTemplate="content">
+                            <img [src]="unit.logo" class="logo" />
+                        </ng-template>
+                    </p-fileUpload>
+
+                </div>
+                <div class="col-lg-3 col-sm-12 mb-3">
+                    <ng-persian-datepicker [dateInitValue]=false>
+                        <div class="input-container">
+                            <input type="text" placeholder="تاریخ پذیرش" formControlName="admissionDate" />
+                            <i class="pi pi-calendar"></i>
+                        </div>
+                    </ng-persian-datepicker>
+                </div>
+                <div class="col-lg-3 col-sm-12 mb-3">
+
+                    <input name="admissionNum" type="text" pInputText placeholder="شماره دبیر خانه مصوبه پذیرش"
+                        formControlName="admissionNum" />
+                </div>
+                <div class="col-lg-3 col-sm-12 mb-3">
+                    <ng-persian-datepicker [dateInitValue]=false>
+                        <div class="input-container">
+                            <input type="text" placeholder="تاریخ خروج" formControlName="outDate" />
+                            <i class="pi pi-calendar"></i>
+                        </div>
+                    </ng-persian-datepicker>
+
+                </div>
+                <div class="col-lg-3 col-sm-12 mb-3">
+                    <input name="outNum" type="text" pInputText placeholder="شماره دبیرخانه مصوبه خروج"
+                        formControlName="outNum" />
+                </div>
+
+            </div>
+            <div class="row">
+                <label class="d-block mr-3">افزودن ایده محوری</label>
+                <form [formGroup]="formIdea" class="w-100">
+                    <div class="col-lg-12 col-sm-12 mb-3">
+                        <div class="row">
+                            <div class="col-lg-4 col-sm-12 mb-3">
+                                <input name="title" type="text" pInputText placeholder="عنوان ایده"
+                                    formControlName="title" />
+                            </div>
+                            <div class="col-lg-2 col-sm-12 mb-3">
+                                <ng-persian-datepicker [dateInitValue]=false>
+                                    <div class="input-container">
+                                        <input type="text" placeholder="تاریخ پذیرش" formControlName="dateIn" />
+                                        <i class="pi pi-calendar"></i>
+                                    </div>
+                                </ng-persian-datepicker>
+                            </div>
+                            <div class="col-lg-2 col-sm-12 mb-3">
+                                <ng-persian-datepicker [dateInitValue]=false>
+                                    <div class="input-container">
+                                        <input type="text" placeholder="تاریخ خروج" formControlName="dateOut" />
+                                        <i class="pi pi-calendar"></i>
+                                    </div>
+                                </ng-persian-datepicker>
+                            </div>
+                            <div class="col-lg-2 col-sm-12 mb-3">
+                                <p-dropdown [options]="outTypes" optionLabel="title" placeholder="نوع خروج"
+                                    (onChange)="onOutTypeChange($event)"></p-dropdown>
+                            </div>
+                            <div class="col-lg-2 col-sm-12 mb-3">
+                                <button pButton pRipple type="button" icon="pi pi-plus" class="p-button"
+                                    (click)="addIdea()"></button>
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-sm-12 mb-3" *ngIf="idea.length>0">
+                            <p-table [value]="idea" dataKey="id">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="width:25%">عنوان ایده</th>
+                                        <th style="width:25%">تاریخ پذیرش</th>
+                                        <th style="width:25%">تاریخ خروج</th>
+                                        <th style="width:25%">نوع خروج</th>
+                                        <th style="width:2%"></th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-data let-editing="editing" let-ri="rowIndex">
+                                    <tr>
+                                        <td [pEditableColumn]="data.title" pEditableColumnField="title"
+                                            [pEditableColumnRowIndex]="ri">
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input" [formGroup]="myGroup">
+                                                    <input pInputText type="text" formControlName="cell"
+                                                        [(ngModel)]="data.title" required>
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    {{data.title}}
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                        <td [pEditableColumn]="data.dateIn" pEditableColumnField="dateIn"
+                                            [pEditableColumnRowIndex]="ri">
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input" [formGroup]="myGroup">
+                                                    <input pInputText type="text" formControlName="cell"
+                                                        [(ngModel)]="data.dateIn" required>
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    {{data.dateIn}}
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                        <td [pEditableColumn]="data.dateOut" pEditableColumnField="dateOut"
+                                            [pEditableColumnRowIndex]="ri">
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input" [formGroup]="myGroup">
+                                                    <input pInputText type="text" formControlName="cell"
+                                                        [(ngModel)]="data.dateOut" >
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    {{data.dateOut}}
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                        <td [pEditableColumn]="data.outType" pEditableColumnField="outType"
+                                            [pEditableColumnRowIndex]="ri">
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input" [formGroup]="myGroup">
+                                                    <input pInputText type="text" formControlName="cell"
+                                                        [(ngModel)]="data.outType" >
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    {{data.outType}}
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                        <td>
+                                            <button (click)="delIdea(ri)" pButton type="button" icon="pi pi-times"
+                                                class="p-button-rounded p-button-text p-button-danger"></button>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="row" *ngIf="type==='شرکت'">
+                <label class="d-block mr-3">افزودن اعضای شرکت</label>
+                <form [formGroup]="formMember" class="w-100">
+                    <div class="col-lg-12 col-sm-12 mb-3">
+                        <div class="row">
+                            <div class="col-lg-2 col-sm-12 mb-3">
+                                <input name="fullName" type="text" pInputText placeholder="نام و نام خانوادگی"
+                                    formControlName="fullName" />
+                            </div>
+                            <div class="col-lg-2 col-sm-12 mb-3">
+                                <input name="nationalCode" pKeyFilter="int" type="text" maxlength="10" minlength="10"
+                                    pInputText placeholder="کد ملی" formControlName="nationalCode" />
+                            </div>
+                            <div class="col-lg-2 col-sm-12 mb-3">
+                                <input name="mobile" pKeyFilter="int" type="text" maxlength="11" minlength="11"
+                                    pInputText placeholder="موبایل" formControlName="mobile" />
+                            </div>
+                            <div class="col-lg-3 col-sm-12 mb-3">
+                                <input name="position" type="text" pInputText placeholder="جایگاه"
+                                    formControlName="position" />
+                            </div>
+                            <div class="col-lg-3 col-sm-12 mb-3">
+                                <button pButton pRipple type="button" icon="pi pi-plus" class="p-button"
+                                    (click)="addMember()"></button>
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-sm-12 mb-3" *ngIf="members.length>0">
+                            <p-table [value]="members" dataKey="id">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="width:25%">نام و نام خانوادگی</th>
+                                        <th style="width:25%">کد ملی</th>
+                                        <th style="width:25%">موبایل</th>
+                                        <th style="width:25%">جایگاه</th>
+                                        <th style="width: 2%;"></th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-data let-editing="editing" let-ri="rowIndex">
+                                    <tr>
+                                        <td [pEditableColumn]="data.fullName" pEditableColumnField="fullName"
+                                            [pEditableColumnRowIndex]="ri">
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input" [formGroup]="myGroup">
+                                                    <input pInputText type="text" formControlName="cell"
+                                                        [(ngModel)]="data.fullName" required>
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    {{data.fullName}}
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                        <td [pEditableColumn]="data.nationalCode" pEditableColumnField="nationalCode"
+                                            [pEditableColumnRowIndex]="ri">
+
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input" [formGroup]="myGroup">
+                                                    <input pInputText type="text" formControlName="cell"
+                                                        [(ngModel)]="data.nationalCode" required>
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    {{data.nationalCode}}
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                        <td [pEditableColumn]="data.mobile" pEditableColumnField="mobile"
+                                            [pEditableColumnRowIndex]="ri">
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input" [formGroup]="myGroup">
+                                                    <input pInputText type="text" formControlName="cell"
+                                                        [(ngModel)]="data.mobile">
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    {{data.mobile}}
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                        <td [pEditableColumn]="data.position" pEditableColumnField="position"
+                                            [pEditableColumnRowIndex]="ri">
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input" [formGroup]="myGroup">
+                                                    <input pInputText type="text" formControlName="cell"
+                                                        [(ngModel)]="data.position" >
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    {{data.position}}
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                        <td>
+                                            <button (click)="delMember(ri)" pButton type="button" icon="pi pi-times"
+                                                class="p-button-rounded p-button-text p-button-danger"></button>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="row">
+                <label class="d-block mr-3">افزودن اعضای تیم یا همکاران</label>
+                <form [formGroup]="formTeam" class="w-100">
+                    <div class="col-lg-12 col-sm-12 mb-3">
+                        <div class="row">
+                            <div class="col-lg-2 col-sm-12 mb-3">
+                                <input name="fullName" type="text" pInputText placeholder="نام و نام خانوادگی"
+                                    formControlName="fullName" />
+                            </div>
+                            <div class="col-lg-2 col-sm-12 mb-3">
+                                <input name="nationalCode" pKeyFilter="int" type="text" maxlength="10" minlength="10"
+                                    pInputText placeholder="کد ملی" formControlName="nationalCode" />
+                            </div>
+                            <div class="col-lg-2 col-sm-12 mb-3">
+                                <input name="position" type="text" pInputText placeholder="جایگاه"
+                                    formControlName="position" />
+                            </div>
+                            <div class="col-lg-2 col-sm-12 mb-3">
+                                <p-dropdown [options]="cooperationTypes" optionLabel="title" placeholder="نوع همکاری"
+                                    (onChange)="onCooperationTypeChange($event)"></p-dropdown>
+                            </div>
+                            <div class="col-lg-2 col-sm-12 mb-3">
+                                <input name="insuranceCode" type="text" pInputText placeholder="کد بیمه"
+                                    formControlName="insuranceCode" />
+                            </div>
+                            <div class="col-lg-2 col-sm-12 mb-3">
+                                <button pButton pRipple type="button" icon="pi pi-plus" class="p-button"
+                                    (click)="addTeam()"></button>
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-sm-12 mb-3" *ngIf="team.length>0">
+                            <p-table [value]="team" dataKey="id">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="width:20%">نام و نام خانوادگی</th>
+                                        <th style="width:20%">کد ملی</th>
+                                        <th style="width:20%">جایگاه</th>
+                                        <th style="width:20%">نوع همکاری</th>
+                                        <th style="width:20%">کد بیمه</th>
+                                        <th style="width:2%"></th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-data let-editing="editing" let-ri="rowIndex">
+                                    <tr>
+                                        <td [pEditableColumn]="data.fullName" pEditableColumnField="fullName"
+                                            [pEditableColumnRowIndex]="ri">
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input" [formGroup]="myGroup">
+                                                    <input pInputText type="text" formControlName="cell"
+                                                        [(ngModel)]="data.fullName" required>
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    {{data.fullName}}
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                        <td [pEditableColumn]="data.nationalCode" pEditableColumnField="nationalCode"
+                                            [pEditableColumnRowIndex]="ri">
+
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input" [formGroup]="myGroup">
+                                                    <input pInputText type="text" formControlName="cell"
+                                                        [(ngModel)]="data.nationalCode" >
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    {{data.nationalCode}}
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                        <td [pEditableColumn]="data.position" pEditableColumnField="position"
+                                            [pEditableColumnRowIndex]="ri">
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input" [formGroup]="myGroup">
+                                                    <input pInputText type="text" formControlName="cell"
+                                                        [(ngModel)]="data.position" >
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    {{data.position}}
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                        <td [pEditableColumn]="data.cooperationType"
+                                            pEditableColumnField="cooperationType" [pEditableColumnRowIndex]="ri">
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input" [formGroup]="myGroup">
+                                                    <input pInputText type="text" formControlName="cell"
+                                                        [(ngModel)]="data.cooperationType" >
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    {{data.cooperationType}}
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                        <td [pEditableColumn]="data.insuranceCode" pEditableColumnField="insuranceCode"
+                                            [pEditableColumnRowIndex]="ri">
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input" [formGroup]="myGroup">
+                                                    <input pInputText type="text" formControlName="cell"
+                                                        [(ngModel)]="data.insuranceCode" >
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    {{data.insuranceCode}}
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                        <td>
+                                            <button (click)="delTeam(ri)" pButton type="button" icon="pi pi-times"
+                                                class="p-button-rounded p-button-text p-button-danger"></button>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="row">
+                <div class="col d-flex flex-row-reverse">
+                    <button type="submit" pButton label="ثبت" [disabled]="form.invalid"
+                        class="panel-dark-button mt-3"></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
