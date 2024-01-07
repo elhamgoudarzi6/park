@@ -1,0 +1,184 @@
+.pnl-content .box {
+  background-color: white;
+  padding: 15px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24) !important;
+  transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+  border-right: 5px #007bff solid;
+  border-radius: 4px;
+}
+
+.panel-title {
+  font-size: 14px;
+  font-family: IRANSans_Bold;
+  margin-bottom: 15px;
+}
+
+.panel-breadcrumb li {
+  margin: 0;
+  font-size: 13px;
+  color: #007bff;
+  font-family: IRANSans_Light;
+}
+
+.panel-breadcrumb li:not(:last-child)::after {
+  margin: 0 5px;
+  content: "/";
+}
+
+.panel-breadcrumb li.current {
+  color: #7dbafc;
+}
+
+.pnl-content .p-inputtext,
+.pnl-content input,
+.p-calendar,
+:host::ng-deep .p-multiselect,
+.pnl-content textarea {
+  width: 100% !important;
+}
+
+
+.pnl-content .p-inputtext:enabled:hover,
+.pnl-content input:hover,
+.pnl-content textarea:hover {
+  border-color: #007bff !important;
+}
+
+.pnl-content .p-dropdown:not(.p-disabled):hover {
+  border-color: #007bff !important;
+  box-shadow: 0 0 0 0.2rem #a2a2a2 !important;
+}
+
+:host::ng-deep .p-paginator .p-paginator-current {
+  font-family: IRANSans_Light !important;
+  font-size: 14px;
+}
+
+:host::ng-deep .pi {
+  font-size: 14px;
+}
+
+:host::ng-deep .p-button.p-button-icon-only {
+  border-radius: 2px;
+  padding: 0;
+  width: 30px;
+}
+
+:host::ng-deep .p-dialog {
+  width: 80%;
+}
+
+@media screen and (max-width: 767px) {
+  :host::ng-deep .p-dialog {
+    width: 93%;
+  }
+}
+
+:host::ng-deep .p-dialog.p-confirm-dialog .p-confirm-dialog-message {
+  font-size: 18px;
+  color: #444;
+  font-family: IRANSans_Light !important;
+  margin-right: 10px;
+}
+
+:host::ng-deep .p-dialog.p-confirm-dialog .p-confirm-dialog-icon {
+  color: red;
+}
+
+:host::ng-deep .p-button .p-button-icon-left {
+  margin-left: 5px;
+}
+
+:host::ng-deep .p-dialog .p-dialog-footer {
+  text-align: left;
+}
+
+
+span {
+  font-size: 14px;
+  color: #444;
+  font-family: IRANSans_Light !important;
+}
+
+input[type="text"] {
+  height: 45px;
+  border: 1px solid #ced4da;
+}
+
+input[type="text"]::placeholder {
+  color: #495057;
+  font-size: 16px;
+  padding-right: 5px;
+  font-family: IRANSans_Light !important;
+}
+
+.input-container {
+  display: flex;
+  width: 100%;
+}
+
+.input-container i {
+  padding: 15px 5px;
+  background: dodgerblue;
+  color: white;
+  width: 30px;
+  text-align: center;
+  border-radius: 2px;
+}
+
+:host::ng-deep .p-divider.p-divider-vertical {
+  padding: 0px !important;
+}
+
+:host::ng-deep .p-divider-solid.p-divider-vertical:before {
+  border-left-style: solid !important;
+}
+
+.p-tag {
+  color: #fff;
+  font-size: 12px;
+  font-family: IRANSans_Light !important;
+}
+
+:host::ng-deep .p-divider-solid.p-divider-horizontal:before {
+  border-top-style: solid !important;
+}
+
+:host::ng-deep.p-toolbar {
+  background: #fff !important;
+}
+
+:host::ng-deep .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item {
+  font-family: IRANSans_Light !important;
+  font-size: 16px;
+}
+
+.head {
+  font-size: 14px;
+  font-family: IRANSans_Bold !important;
+  color: #666;
+}
+
+:host::ng-deep .p-button.p-button-icon-only {
+  border-radius: 5px;
+  width: 30px;
+}
+
+
+:host::ng-deep .p-toast .p-toast-message .p-toast-message-content .p-toast-summary {
+  font-size: 16px;
+  font-family: IRANSans_Light !important;
+  margin-right: 5px;
+}
+
+:host::ng-deep .p-toast .p-toast-message .p-toast-message-content .p-toast-detail {
+  font-size: 16px;
+  font-family: IRANSans_Light !important;
+}
+
+::ng-deep ng-persian-datepicker .datepicker-outer-container {
+  position: absolute;
+  top: 43px;
+  right: -10px;
+  z-index: 1000;
+}

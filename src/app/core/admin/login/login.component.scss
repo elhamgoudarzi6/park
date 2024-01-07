@@ -1,0 +1,129 @@
+:host::ng-deep .p-toast .p-toast-message .p-toast-message-content .p-toast-summary {
+  font-size: 16px;
+  font-family: IRANSans_Light !important;
+  margin-right: 5px;
+}
+
+:host::ng-deep .p-toast .p-toast-message .p-toast-message-content .p-toast-detail {
+  font-size: 16px;
+  font-family: IRANSans_Light !important;
+}
+
+:host::ng-deep .p-toast .p-toast-message.p-toast-message-error .p-toast-message-icon,
+.p-toast .p-toast-message.p-toast-message-error .p-toast-icon-close {
+  margin-left: 5px;
+}
+
+@media screen and (max-width: 767px) {
+  :host::ng-deep .p-toast {
+    width: 90% !important;
+  }
+}
+
+ul li {
+  font-size: 12px;
+}
+
+input,
+:host::ng-deep .p-inputtext,
+:host::ng-deep .p-dropdown,
+:host::ng-deep .p-chips,
+.p-inputtext,
+.p-dropdown,
+.p-chips,
+textarea {
+  width: 100% !important;
+}
+
+.box{
+  box-shadow: 0 .5rem 1.5rem rgba(#000, .15) !important;
+}
+
+
+.social-links a {
+  display: inline-block;
+  padding: 0px 5px;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+}
+
+.social-links a:hover {
+  transform: scale(1.12);
+}
+
+.social-links a svg {
+  fill: #fff;
+  width: 18px;
+  height: 18px;
+  stroke: #fff;
+  stroke-width: 1px;
+}
+
+:host::ng-deep .p-divider.p-divider-vertical {
+  padding: 0px !important;
+}
+
+:host::ng-deep .p-divider-solid.p-divider-vertical:before {
+  border-left-style: solid !important;
+}
+
+input[type="password"] {
+  height: 45px;
+}
+
+.btn-primary {
+  height: 45px;
+}
+
+label {
+  font-family: IRANSans_Bold !important;
+  color: #777;
+  margin-top: 15px;
+}
+
+.side {
+  text-align: center;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background-position: center center;
+  padding: 90px 0;
+  background-image: linear-gradient(to right, rgba(#0008a3, .5), rgba(#0900ff, .4)),
+  url("../../../../assets/images/bg.png");
+  // background-image: radial-gradient(circle,rgba(#736ef8,.5), rgba(#0008a3, .8)),
+  // url("../../../../assets/images/bg.png");
+  background-size: cover;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.side h1 {
+  font-size: 48px;
+  color: #fff;
+  font-family: IRANSans_Bold !important;
+}
+
+.side h2 {
+  margin-top: 20px;
+  color: #fff;
+  font-size: 24px;
+  font-family: IRANSans_Light !important;
+}
+
+.login-page {
+  width: 100%;
+  height: 110vh;
+  display: inline-block;
+  display: flex;
+  align-items: center;
+}
+
+.round {
+  border-radius: 10px;
+ // box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%) !important;
+
+}
+
+p,
+a {
+  font-family: IRANSans_Light !important;
+}

@@ -1,0 +1,191 @@
+<p-toast position="center"></p-toast>
+<div class="pnl-content pt-3 pl-3 pr-3">
+    <div class="row no-gutters">
+        <div class="col-lg-12">
+            <div class="box">
+                <div class="row no-gutters justify-content-center">
+                    <div class="col-lg-12 col-sm-12 align-self-center">
+                        <ul class="list-inline panel-breadcrumb">
+                            <li class="list-inline-item pointer" [routerLink]="['/']">سامانه نگاه</li>
+                            <li class="list-inline-item pointer" [routerLink]="['/']">اعتبارات</li>
+                            <li class="list-inline-item current"> گزارش گیری </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="pnl-content p-3">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box">
+                <div class="d-flex justify-content-between p-2">
+                    <div class="col-lg-6 head">گزارش تسهیلات پرداختی</div>
+                    <div class="col-lg-6 flex text-left">
+                        <button pButton pRipple label="نمایش" icon="pi pi-file"
+                            class="panel-border-button  p-button-icon-right"
+                            (click)="showResultDialog('payment')"></button>
+                    </div>
+                </div>
+                <div class="row mt-3 justify-content-center">
+                    <!-- <div class="col-lg-3 col-sm-12 mb-3">
+                        <span class="p-fluid">
+                            <p-autoComplete [lazy]="true" [dropdown]="true" (onSelect)="onSelectUnitPayment($event)"
+                                (onClear)="onSelectUnitPayment($event)" [suggestions]="filteredUnitsPayment"
+                                placeholder='واحد فناور' (completeMethod)="filterUnitPayment($event)"
+                                field="ceoFullName">
+                                <ng-template let-unit pTemplate="ceoFullName">
+                                    {{unit.companyName}} - {{unit.ceoFullName}}
+                                </ng-template>
+                            </p-autoComplete>
+                        </span>
+                    </div> -->
+                    <div class="col-lg-3 col-sm-12 mb-3">
+                        <span class="p-fluid">
+                            <p-autoComplete [lazy]="true" [dropdown]="true" (onSelect)="onSelectUnitTypePayment($event)"
+                                (onClear)="onSelectUnitTypePayment($event)" [suggestions]="filteredUnits"
+                                placeholder="نوع واحد فناور" (completeMethod)="filterUnit($event)" field="title">
+                            </p-autoComplete>
+                        </span>
+                    </div>
+                    <div class="col-lg-3 col-sm-12 mb-3">
+                        <span class="p-fluid">
+                            <p-autoComplete [lazy]="true" [dropdown]="true" (onSelect)="onSelectPlace($event)"
+                                (onClear)="onSelectPlace($event)" [suggestions]="filteredPlaces"
+                                placeholder='محل پرداخت' (completeMethod)="filterPlace($event)" field="title">
+                            </p-autoComplete>
+                        </span>
+                    </div>
+                    <div class="col-lg-3 col-sm-12 mb-3">
+                        <span class="p-fluid">
+                            <p-autoComplete [lazy]="true" [dropdown]="true" (onSelect)="onSelectType($event)"
+                                (onClear)="onSelectType($event)" [suggestions]="filteredTypes" placeholder=' مصوبه'
+                                (completeMethod)="filterType($event)" field="title">
+                            </p-autoComplete>
+                        </span>
+                    </div>
+                    <div class="col-lg-6 col-sm-12 mb-3">
+                        <span class="p-fluid">
+                            <p-autoComplete [lazy]="true" [dropdown]="true" (onSelect)="onSelectSubType($event)"
+                                (onClear)="onSelectSubType($event)" [suggestions]="filteredSubTypes"
+                                placeholder='نوع مصوبه' (completeMethod)="filterSubType($event)" field="title">
+                            </p-autoComplete>
+                        </span>
+                    </div>
+                    <div class="col-lg-3 col-sm-12 mb-3">
+                        <ng-persian-datepicker [dateInitValue]=false (dateOnSelect)="onSelectDateFromPayment($event)">
+                            <div class="input-container">
+                                <input type="text" placeholder="تاریخ پرداخت از" [formControl]="dateValueMin" />
+                                <i class="pi pi-calendar"></i>
+                            </div>
+                        </ng-persian-datepicker>
+                    </div>
+                    <div class="col-lg-3 col-sm-12 mb-3">
+                        <ng-persian-datepicker [dateInitValue]=false (dateOnSelect)="onSelectDateToPayment($event)">
+                            <div class="input-container">
+                                <input type="text" placeholder="تاریخ پرداخت تا" [formControl]="dateValueMax" />
+                                <i class="pi pi-calendar"></i>
+                            </div>
+                        </ng-persian-datepicker>
+                    </div>
+                    <div class="col-lg-3 col-sm-12 mb-3">
+                        <ng-persian-datepicker [dateInitValue]=false (dateOnSelect)="onSelectmeetingDate($event)">
+                            <div class="input-container">
+                                <input type="text" placeholder="تاریخ صورت جلسه" [formControl]="meetingDate" />
+                                <i class="pi pi-calendar"></i>
+                            </div>
+                        </ng-persian-datepicker>
+                    </div>
+                    <div class="col-lg-3 col-sm-12 mb-3">
+                        <ng-persian-datepicker [dateInitValue]=false (dateOnSelect)="onSelectDateToPayment($event)">
+                            <div class="input-container">
+                                <input type="text" placeholder="تاریخ صورت جلسه" [formControl]="meetingDate" />
+                                <i class="pi pi-calendar"></i>
+                            </div>
+                        </ng-persian-datepicker>
+                    </div>
+                    <div class="col-lg-3 col-sm-12 mb-3">
+                        <input name="meetingNumber" type="text" pInputText placeholder="شماره صورت جلسه"
+                            [(ngModel)]="meetingNumber" />
+                    </div>
+                    <div class="col-lg-3 col-sm-12 mb-3">
+                        <input name="meetingNumber" type="text" pInputText placeholder="شماره صورت جلسه" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12">
+                        <p-divider styleClass="justify-content-center">
+                            <span class="p-tag">انتخاب فیلدهای خروجی</span>
+                        </p-divider>
+                        <div class="row p-2">
+                            <div class="col-lg-2 col-sm-6 mt-2" *ngFor="let item of payCols">
+                                <p-checkbox name="groupname" [binary]="true" value="item.header"
+                                    (onChange)="onClickselectColPayment(item.field,item.header,$event)">
+                                </p-checkbox>
+                                {{ item.header }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pnl-content mt-4">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="box">
+                    <div class="d-flex justify-content-between p-2">
+                        <div class="col-lg-6 head">گزارشگیری واحد های فناور</div>
+                        <div class="col-lg-6 text-left">
+                            <button pButton pRipple label="نمایش" icon="pi pi-file"
+                                class="panel-border-button  p-button-icon-right"
+                                (click)="showResultDialog('unit')"></button>
+                        </div>
+                    </div>
+                    <div class="row mt-3 justify-content-center">
+                        <div class="col-lg-4 col-sm-12 mb-3">
+                            <span class="p-fluid">
+                                <p-autoComplete [lazy]="true" [dropdown]="true" (onSelect)="onSelectUnitType($event)"
+                                    (onClear)="onSelectUnitType($event)" [suggestions]="filteredUnits"
+                                    placeholder="نوع واحد فناور" (completeMethod)="filterUnit($event)" field="title">
+                                </p-autoComplete>
+                            </span>
+                        </div>
+                        <div class="col-lg-4 col-sm-12 mb-3">
+                            <ng-persian-datepicker [dateInitValue]=false (dateOnSelect)="onSelectDateFrom($event)">
+                                <div class="input-container">
+                                    <input type="text" placeholder="تاریخ پذیرش از" [formControl]="dateMin" />
+                                    <i class="pi pi-calendar"></i>
+                                </div>
+                            </ng-persian-datepicker>
+                        </div>
+                        <div class="col-lg-4 col-sm-12 mb-3">
+                            <ng-persian-datepicker [dateInitValue]=false (dateOnSelect)="onSelectDateTo($event)">
+                                <div class="input-container">
+                                    <input type="text" placeholder="تاریخ پذیرش تا" [formControl]="dateMax" />
+                                    <i class="pi pi-calendar"></i>
+                                </div>
+                            </ng-persian-datepicker>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12">
+                            <p-divider styleClass="justify-content-center">
+                                <span class="p-tag">انتخاب فیلدهای خروجی</span>
+                            </p-divider>
+                            <div class="row p-2">
+                                <div class="col-lg-2 mt-2" *ngFor="let item of cols">
+                                    <p-checkbox name="groupname" [binary]="true" value="item.header"
+                                        (onChange)="onClickselectColUnit(item.field,item.header,$event)">
+                                    </p-checkbox>
+                                    {{ item.header }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
